@@ -29,12 +29,24 @@ var machineData = [
 var object = machineData; // = JSON.parse(JSON.stringify(machineData));
 
 for (var scan in object) {
-  if (object[scan].timeType === "Usage Time") {
+  if (object[scan].timeType === "Down Time") {
     console.log("This is a downtime ");
-    var hours;
-    hours = object[scan].startTime.split(":");
-    console.log(hours);
-    downTimeData.push("x: " + hours[0] + "," + "y: " + object[scan].endTime);
+    var startingHours;
+    var endingHours;
+    console.log(object[scan].startTime);
+    startingHours = object[scan].startTime.split(":");
+    endingHours = object[scan].endTime.split(":");
+    var startingHoursToPush = startingHours[0];
+    var endingHoursToPush = endingHours[0];
+
+    if (startingHours[0] === endingHours[0]) {
+      downTimeData.push({
+        x: startingHoursToPush + ":00",
+        y: startingHours[1] + "," + endingHours[1],
+      });
+
+      console.log("data pushed = " + startingHoursToPush);
+    }
   }
   console.log(downTimeData);
 }
