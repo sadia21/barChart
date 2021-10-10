@@ -37,6 +37,12 @@ machineData = [
     scanType: " ",
     timeType: "Down Time",
   },
+  {
+    startTime: "14:15",
+    endTime: "14:50",
+    scanType: " ",
+    timeType: "Down Time",
+  },
 ];
 for (var scan in machineData) {
   var startingTime = machineData[scan].startTime.split(":");
