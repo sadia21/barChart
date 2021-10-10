@@ -3,7 +3,13 @@ var usageTimeData = [];
 console.log("hain g");
 var machineData = [
   {
-    startTime: "10:30",
+    startTime: "09:30",
+    endTime: "09:50",
+    scanType: "Head Scan",
+    timeType: "Usage Time",
+  },
+  {
+    startTime: "10:40",
     endTime: "10:50",
     scanType: "Head Scan",
     timeType: "Usage Time",
@@ -23,6 +29,12 @@ var machineData = [
   {
     startTime: "12:15",
     endTime: "12:30",
+    scanType: " ",
+    timeType: "Down Time",
+  },
+  {
+    startTime: "07:15",
+    endTime: "07:30",
     scanType: " ",
     timeType: "Down Time",
   },
@@ -58,10 +70,8 @@ for (var scan in object) {
       var startingHours;
       var endingHours;
 
-      //console.log(object[scan].startTime);
       startingHours = object[scan].startTime.split(":");
       endingHours = object[scan].endTime.split(":");
-      //console.log(startingHours);
       var startingHoursToPush = startingHours[0];
       var endingHoursToPush = endingHours[0];
 
@@ -80,6 +90,33 @@ new Chart(document.getElementById("stackedbar-chart"), {
   type: "bar",
   data: {
     datasets: [
+      {
+        label: "Idle Time",
+
+        data: [
+          {
+            x: "07:00",
+          },
+          {
+            x: "08:00",
+          },
+          {
+            x: "09:00",
+          },
+          {
+            x: "10:00",
+          },
+          {
+            x: "11:00",
+          },
+          {
+            x: "12:00",
+          },
+          {
+            x: "13:00",
+          },
+        ],
+      },
       {
         label: "Machine in use",
         backgroundColor: "lightgreen",
