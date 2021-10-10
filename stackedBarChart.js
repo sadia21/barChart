@@ -80,6 +80,13 @@ for (var scan in object) {
           x: startingHoursToPush + ":00",
           y: [startingHours[1], endingHours[1]],
         });
+      } else {
+        console.log(
+          "Start time " +
+            startingHours[0] +
+            " is not equal to ending hour " +
+            endingHours[0]
+        );
       }
     }
   }
