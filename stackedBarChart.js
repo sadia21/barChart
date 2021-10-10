@@ -1,5 +1,5 @@
-var machineDowntimeData;
-var machineUsedTimeData;
+var machineDowntimeData = [];
+var machineUsedTimeData = [];
 machineData = [
   {
     startTime: "10:30",
@@ -27,14 +27,22 @@ machineData = [
   },
 ];
 for (var scan in machineData) {
-  var startingTime = machineData[scan].startTime.split(":"); //console.log(startingTime);
-  var startingHour = startingTime[0]; //console.log(startingHour);
-  var startingMinute = startingTime[1]; //console.log(startingMinute);
-  var endingTime = machineData[scan].endTime.split(":"); //console.log(endingTime);
-  var endingHour = endingTime[0]; //console.log(endingHour);
-  var endingMinute = endingTime[1]; //console.log(endingMinute);
-  var scanTypes = machineData[scan].scanType;
-  var timeTypes = machineData[scan].timeType;
+  var startingTime = machineData[scan].startTime.split(":");
+  var endingTime = machineData[scan].endTime.split(":");
+  var startingHour = startingTime[0];
+
+  var startingMinute = startingTime[1];
+  var endingHour = endingTime[0];
+
+  var endingMinute = endingTime[1];
+
+  if (machineData[scan].timeType === "Down Time") {
+    machineDowntimeData.push({
+      x: startingHour + ":00",
+      y: [startingMinute, endingMinute],
+    });
+    console.log(machineDowntimeData);
+  }
 }
 var delayed;
 new Chart(document.getElementById("stackedbar-chart"), {
@@ -80,16 +88,7 @@ new Chart(document.getElementById("stackedbar-chart"), {
         label: "Down time",
         backgroundColor: "red",
         borderColor: "red",
-        data: [
-          {
-            x: "10:00",
-            y: [10, 18],
-          },
-          {
-            x: "9:00",
-            y: [20, 50],
-          },
-        ],
+        data: machineDowntimeData,
       },
     ],
   },
