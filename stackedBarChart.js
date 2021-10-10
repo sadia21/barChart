@@ -2,6 +2,12 @@ var machineDowntimeData = [];
 var machineUsedTimeData = [];
 machineData = [
   {
+    startTime: "7:30",
+    endTime: "7:50",
+    scanType: "Head Scan",
+    timeType: "Down Time",
+  },
+  {
     startTime: "10:30",
     endTime: "10:50",
     scanType: "Head Scan",
@@ -25,6 +31,12 @@ machineData = [
     scanType: " ",
     timeType: "Down Time",
   },
+  {
+    startTime: "11:15",
+    endTime: "12:30",
+    scanType: " ",
+    timeType: "Down Time",
+  },
 ];
 for (var scan in machineData) {
   var startingTime = machineData[scan].startTime.split(":");
@@ -37,11 +49,20 @@ for (var scan in machineData) {
   var endingMinute = endingTime[1];
 
   if (machineData[scan].timeType === "Down Time") {
-    machineDowntimeData.push({
-      x: startingHour + ":00",
-      y: [startingMinute, endingMinute],
-    });
-    console.log(machineDowntimeData);
+    if (startingHour === endingHour) {
+      machineDowntimeData.push({
+        x: startingHour + ":00",
+        y: [startingMinute, endingMinute],
+      });
+    }
+  }
+  if (machineData[scan].timeType === "Usage Time") {
+    if (startingHour === endingHour) {
+      machineUsedTimeData.push({
+        x: startingHour + ":00",
+        y: [startingMinute, endingMinute],
+      });
+    }
   }
 }
 var delayed;
@@ -50,39 +71,50 @@ new Chart(document.getElementById("stackedbar-chart"), {
   data: {
     datasets: [
       {
-        label: "Machine in use",
-        backgroundColor: "lightgreen",
-        borderColor: "lightgreen",
         data: [
           {
             x: "7:00",
-            y: [50, 60],
-          },
-          {
-            x: "7:00",
-            y: [20, 40],
           },
           {
             x: "8:00",
-            y: [8, 21],
-          },
-          {
-            x: "8:00",
-            y: [34, 41],
-          },
-          {
-            x: "8:00",
-            y: [47, 57],
           },
           {
             x: "9:00",
-            y: [50, 60],
           },
           {
             x: "10:00",
-            y: [30, 43],
+          },
+          {
+            x: "11:00",
+          },
+          {
+            x: "12:00",
+          },
+          {
+            x: "13:00",
+          },
+          {
+            x: "14:00",
+          },
+          {
+            x: "15:00",
+          },
+          {
+            x: "16:00",
+          },
+          {
+            x: "17:00",
+          },
+          {
+            x: "18:00",
           },
         ],
+      },
+      {
+        label: "Machine in use",
+        backgroundColor: "lightgreen",
+        borderColor: "lightgreen",
+        data: machineUsedTimeData,
       },
       {
         label: "Down time",
