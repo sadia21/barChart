@@ -1,3 +1,41 @@
+var machineDowntimeData;
+var machineUsedTimeData;
+machineData = [
+  {
+    startTime: "10:30",
+    endTime: "10:50",
+    scanType: "Head Scan",
+    timeType: "Usage Time",
+  },
+  {
+    startTime: "11:15",
+    endTime: "11:30",
+    scanType: "Leg Scan",
+    timeType: "Usage Time",
+  },
+  {
+    startTime: "11:45",
+    endTime: "12:10",
+    scanType: "Spine Scan",
+    timeType: "Usage Time",
+  },
+  {
+    startTime: "12:15",
+    endTime: "12:30",
+    scanType: " ",
+    timeType: "Down Time",
+  },
+];
+for (var scan in machineData) {
+  var startingTime = machineData[scan].startTime.split(":"); //console.log(startingTime);
+  var startingHour = startingTime[0]; //console.log(startingHour);
+  var startingMinute = startingTime[1]; //console.log(startingMinute);
+  var endingTime = machineData[scan].endTime.split(":"); //console.log(endingTime);
+  var endingHour = endingTime[0]; //console.log(endingHour);
+  var endingMinute = endingTime[1]; //console.log(endingMinute);
+  var scanTypes = machineData[scan].scanType;
+  var timeTypes = machineData[scan].timeType;
+}
 var delayed;
 new Chart(document.getElementById("stackedbar-chart"), {
   type: "bar",
