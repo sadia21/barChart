@@ -1,4 +1,5 @@
 var downTimeData = [];
+var usageTimeData = [];
 console.log("hain g");
 var machineData = [
   {
@@ -11,7 +12,7 @@ var machineData = [
     startTime: "11:15",
     endTime: "11:30",
     scanType: "Leg Scan",
-    timeType: "Usage Time",
+    timeType: "Down Time",
   },
   {
     startTime: "11:45",
@@ -25,32 +26,55 @@ var machineData = [
     scanType: " ",
     timeType: "Down Time",
   },
+  {
+    startTime: "09:05",
+    endTime: "09:30",
+    scanType: " ",
+    timeType: "Down Time",
+  },
 ];
+
 var object = machineData; // = JSON.parse(JSON.stringify(machineData));
 
 for (var scan in object) {
   if (object[scan].timeType === "Down Time") {
-    console.log("This is a downtime ");
     var startingHours;
     var endingHours;
-    console.log(object[scan].startTime);
+
     startingHours = object[scan].startTime.split(":");
     endingHours = object[scan].endTime.split(":");
+
     var startingHoursToPush = startingHours[0];
     var endingHoursToPush = endingHours[0];
 
     if (startingHours[0] === endingHours[0]) {
       downTimeData.push({
         x: startingHoursToPush + ":00",
-        y: startingHours[1] + "," + endingHours[1],
+        y: [startingHours[1], endingHours[1]],
       });
+    }
+  } else {
+    if (object[scan].timeType === "Usage Time") {
+      var startingHours;
+      var endingHours;
 
-      console.log("data pushed = " + startingHoursToPush);
+      //console.log(object[scan].startTime);
+      startingHours = object[scan].startTime.split(":");
+      endingHours = object[scan].endTime.split(":");
+      //console.log(startingHours);
+      var startingHoursToPush = startingHours[0];
+      var endingHoursToPush = endingHours[0];
+
+      if (startingHours[0] === endingHours[0]) {
+        usageTimeData.push({
+          x: startingHoursToPush + ":00",
+          y: [startingHours[1], endingHours[1]],
+        });
+      }
     }
   }
-  console.log(downTimeData);
 }
-
+console.log(downTimeData);
 var delayed;
 new Chart(document.getElementById("stackedbar-chart"), {
   type: "bar",
@@ -60,51 +84,13 @@ new Chart(document.getElementById("stackedbar-chart"), {
         label: "Machine in use",
         backgroundColor: "lightgreen",
         borderColor: "lightgreen",
-        data: [
-          {
-            x: "7:00",
-            y: [50, 60],
-          },
-          {
-            x: "7:00",
-            y: [20, 40],
-          },
-          {
-            x: "8:00",
-            y: [8, 21],
-          },
-          {
-            x: "8:00",
-            y: [34, 41],
-          },
-          {
-            x: "8:00",
-            y: [47, 57],
-          },
-          {
-            x: "9:00",
-            y: [50, 60],
-          },
-          {
-            x: "10:00",
-            y: [30, 43],
-          },
-        ],
+        data: usageTimeData,
       },
       {
         label: "Down time",
         backgroundColor: "red",
         borderColor: "red",
-        data: [
-          {
-            x: "10:00",
-            y: [10, 18],
-          },
-          {
-            x: "9:00",
-            y: [20, 50],
-          },
-        ],
+        data: downTimeData,
       },
     ],
   },
