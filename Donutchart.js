@@ -1,4 +1,4 @@
-var scantypedta = [];
+var scanTypeLabel = [];
 var counts = {};
 machineData = [
   {
@@ -67,30 +67,38 @@ for (var scan in machineData) {
   var endingHour = endingTime[0];
 
   var endingMinute = endingTime[1];
-  //console.log(endingMinute);
-  var scanTypes = machineData[scan].scanType;
-  scantypedta.push(scanTypes);
 
+  if (!scanTypeLabel.includes(machineData[scan].scanType)) {
+    var scanTypes = machineData[scan].scanType;
+    if (scanTypes === " ") {
+      scanTypes = machineData[scan].timeType;
+      scanTypeLabel.push(scanTypes);
+    } else {
+      scanTypeLabel.push(scanTypes);
+    }
+  }
   if (startingHour === endingHour) {
     var lengthOfScan = endingMinute - startingMinute;
     //console.log(lengthOfScan);
   }
 }
-//console.log(scantypedta);
-scantypedta.forEach((x) => {
+console.log(scanTypeLabel);
+scanTypeLabel.forEach((x) => {
   counts[x] = (counts[x] || 0) + 1;
 });
 //console.log(counts);
 const data = {
-  labels: ["Head", "Leg", "Spine"],
+  labels: scanTypeLabel,
   datasets: [
     {
-      label: "My First Dataset",
-      data: [3, 54, 34],
+      label: "Machine Usage Percentage",
+      data: [3, 54, 34, 15, 45],
       backgroundColor: [
         "rgb(255, 99, 132)",
         "rgb(75, 192, 192)",
         "rgb(255, 205, 86)",
+        "rgb(225, 205, 186)",
+        "rgb(55, 120, 60)",
       ],
     },
   ],
