@@ -1,4 +1,4 @@
-var scanTypeDate = [];
+var scanTypeData = [];
 var scanTypeLabel = [];
 var counts = {};
 machineData = [
@@ -68,9 +68,20 @@ for (var scan in machineData) {
   var endingHour = endingTime[0];
 
   var endingMinute = endingTime[1];
-
-  if (!scanTypeLabel.includes(machineData[scan].scanType)) {
-    var scanTypes = machineData[scan].scanType;
+  createScanTypeLabel(machineData[scan].scanType);
+  var addAllMinutes = 0;
+  for (let everyscan in scanTypeLabel) {
+    if (scanTypeLabel[everyscan] === machineData[scan].scanType) {
+      addAllMinutes += parseInt(endingMinute);
+    } else {
+      addAllMinutes = parseInt(endingMinute);
+    }
+  }
+  scanTypeData.push(addAllMinutes);
+}
+function createScanTypeLabel(scanType) {
+  if (!scanTypeLabel.includes(scanType)) {
+    var scanTypes = scanType;
 
     if (scanTypes === " ") {
       //scanTypes = machineData[scan].timeType;
@@ -79,15 +90,9 @@ for (var scan in machineData) {
       scanTypeLabel.push(scanTypes);
     }
   }
-  for (let everyscan in scanTypeLabel) {
-    if (scanTypeLabel[everyscan] === machineData[scan].scanType) {
-      console.log(
-        scanTypeLabel[everyscan] + " is equal to " + machineData[scan].scanType
-      );
-    }
-  }
 }
-
+console.log(scanTypeLabel);
+console.log(scanTypeData);
 scanTypeLabel.forEach((x) => {
   counts[x] = (counts[x] || 0) + 1;
 });
