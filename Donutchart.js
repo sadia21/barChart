@@ -79,10 +79,10 @@ for (var scan in machineData) {
 
   var endingHour = getHourfromSplitTimeArray(endingTime);
   var endingMinute = getMinutesFromSplitTimeArray(endingTime);
-  if (startingHour === endingHour) {
-    var timecal = endingMinute - startingMinute;
-    lengthofscan.push(timecal);
-  }
+  // if (startingHour === endingHour) {
+  //   var timecal = endingMinute - startingMinute;
+  //   lengthofscan.push(timecal);
+  // }
   createScanTypeLabel(machineData[scan].scanType);
   var addAllMinutes = 0;
   for (let i = 0; i < scanTypeLabel.length; i++) {
@@ -91,27 +91,23 @@ for (var scan in machineData) {
         addAllMinutes = addAllMinutes + lengthofscan[j];
       }
     }
-    scanTypeData.push(addAllMinutes);
   }
+  scanTypeData.push(addAllMinutes);
 }
 
 console.log(lengthofscan);
 console.log("Scan Type Data " + scanTypeData);
+
 function createScanTypeLabel(scanType) {
   if (!scanTypeLabel.includes(scanType)) {
-    var scanTypes = scanType;
-
-    if (scanTypes === " ") {
-      //scanTypes = machineData[scan].timeType;
-      scanTypeLabel.push(scanTypes);
+    if (scanType === " ") {
+      scanTypeLabel.push(scanType);
     } else {
-      scanTypeLabel.push(scanTypes);
+      scanTypeLabel.push(scanType);
     }
   }
 }
 console.log(scanTypeLabel);
-console.log(scanTypeLabel[2]);
-console.log(machineData[2].scanType);
 
 scanTypeLabel.forEach((x) => {
   counts[x] = (counts[x] || 0) + 1;
