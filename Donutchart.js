@@ -1,6 +1,7 @@
 var scanTypeData = [];
 var scanTypeLabel = [];
 var scanTypeDataInPercentage = [];
+var machineName = "MRI Aleris Danderyd";
 machineData = [
   {
     startTime: "7:30",
@@ -138,7 +139,7 @@ const data = {
       backgroundColor: [
         "#ff9800",
         "#009688",
-        "#f44336",
+        "#d0021b",
         "#2196f3",
         "#e91e63",
         "#673ab7",
@@ -154,7 +155,18 @@ const data = {
 const config = {
   type: "doughnut",
   data: data,
-  options: {},
+  options: {
+    plugins: {
+      title: {
+        display: true,
+        text: "Machine Usage Percentage for Machine: " + machineName,
+        font: {
+          size: 14,
+          family: "Poppins",
+        },
+      },
+    },
+  },
 };
 
 var myChart = new Chart(document.getElementById("donut-chart"), config);
