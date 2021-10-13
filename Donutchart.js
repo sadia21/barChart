@@ -95,7 +95,6 @@ function getScanLabelsAsArray(allData) {
   for (var scan in allData) {
     createScanTypeLabel(allData[scan].scanType);
   }
-  //console.log(scanTypeLabel);
 }
 
 function getUsageMinutes(allLabels, allData) {
@@ -137,11 +136,16 @@ const data = {
       label: "Machine Usage Percentage",
       data: scanTypeDataInPercentage,
       backgroundColor: [
-        "rgb(255, 99, 132)",
-        "rgb(75, 192, 192)",
-        "rgb(255, 205, 86)",
-        "rgb(225, 205, 186)",
-        "rgb(55, 120, 60)",
+        "#ff9800",
+        "#009688",
+        "#f44336",
+        "#2196f3",
+        "#e91e63",
+        "#673ab7",
+        "#03a9f4",
+        "#9c27b0",
+        "#607d8b",
+        "#4caf50",
       ],
     },
   ],
