@@ -58,7 +58,10 @@ machineData = [
     timeType: "Down Time",
   },
 ];
-//console.log(machineData.length);
+///// main call sequence
+getScanLabelsAsArray(machineData);
+
+////// All Funcations
 function getMinutesFromSplitTimeArray(time) {
   return time[1];
 }
@@ -68,50 +71,37 @@ function getHourfromSplitTimeArray(time) {
 function splitTimeIntoMinutesAndHours(timeToSplit) {
   return timeToSplit.split(":");
 }
-for (var scan in machineData) {
-  var startingTime = splitTimeIntoMinutesAndHours(machineData[scan].startTime);
+function getScanLabelsAsArray(allData) {
+  for (var scan in allData) {
+    var startingTime = splitTimeIntoMinutesAndHours(allData[scan].startTime);
 
-  var endingTime = splitTimeIntoMinutesAndHours(machineData[scan].endTime);
+    var endingTime = splitTimeIntoMinutesAndHours(allData[scan].endTime);
 
-  var startingHour = getHourfromSplitTimeArray(startingTime);
+    var startingHour = getHourfromSplitTimeArray(startingTime);
 
-  var startingMinute = getMinutesFromSplitTimeArray(startingTime);
+    var startingMinute = getMinutesFromSplitTimeArray(startingTime);
 
-  var endingHour = getHourfromSplitTimeArray(endingTime);
-  var endingMinute = getMinutesFromSplitTimeArray(endingTime);
-  // if (startingHour === endingHour) {
-  //   var timecal = endingMinute - startingMinute;
-  //   lengthofscan.push(timecal);
-  // }
-  createScanTypeLabel(machineData[scan].scanType);
-  var addAllMinutes = 0;
-  for (let i = 0; i < scanTypeLabel.length; i++) {
-    for (let j = 0; j < machineData.length; j++) {
-      if (scanTypeLabel[i] === machineData[j].scanType) {
-        addAllMinutes = addAllMinutes + lengthofscan[j];
-      }
-    }
+    var endingHour = getHourfromSplitTimeArray(endingTime);
+    var endingMinute = getMinutesFromSplitTimeArray(endingTime);
+
+    createScanTypeLabel(allData[scan].scanType);
   }
-  scanTypeData.push(addAllMinutes);
 }
-
-console.log(lengthofscan);
-console.log("Scan Type Data " + scanTypeData);
 
 function createScanTypeLabel(scanType) {
   if (!scanTypeLabel.includes(scanType)) {
-    if (scanType === " ") {
-      scanTypeLabel.push(scanType);
-    } else {
-      scanTypeLabel.push(scanType);
-    }
+    // if (scanType === " ") {
+    //   scanTypeLabel.push(scanType);
+    // } else {
+    scanTypeLabel.push(scanType);
+    //}
   }
 }
 console.log(scanTypeLabel);
 
-scanTypeLabel.forEach((x) => {
-  counts[x] = (counts[x] || 0) + 1;
-});
+// scanTypeLabel.forEach((x) => {
+//   counts[x] = (counts[x] || 0) + 1;
+// });
 //console.log(counts);
 const data = {
   labels: scanTypeLabel,
