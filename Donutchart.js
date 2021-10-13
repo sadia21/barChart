@@ -60,7 +60,7 @@ machineData = [
 ];
 ///// main call sequence
 getScanLabelsAsArray(machineData);
-
+getUsageMinutes(scanTypeLabel, machineData);
 ////// All Funcations
 function getMinutesFromSplitTimeArray(time) {
   return time[1];
@@ -73,42 +73,49 @@ function splitTimeIntoMinutesAndHours(timeToSplit) {
 }
 function getScanLabelsAsArray(allData) {
   for (var scan in allData) {
-    var startingTime = splitTimeIntoMinutesAndHours(allData[scan].startTime);
-
-    var endingTime = splitTimeIntoMinutesAndHours(allData[scan].endTime);
-
-    var startingHour = getHourfromSplitTimeArray(startingTime);
-
-    var startingMinute = getMinutesFromSplitTimeArray(startingTime);
-
-    var endingHour = getHourfromSplitTimeArray(endingTime);
-    var endingMinute = getMinutesFromSplitTimeArray(endingTime);
-
     createScanTypeLabel(allData[scan].scanType);
+  }
+  //console.log(scanTypeLabel);
+}
+
+function getUsageMinutes(allLabels, allData) {
+  var totalMinutes = 0;
+  for (var label in allLabels) {
+    for (var scan in allData) {
+      if (allLabels[label] === allData[scan].scanType) {
+        var startingTime = splitTimeIntoMinutesAndHours(
+          allData[scan].startTime
+        );
+
+        var endingTime = splitTimeIntoMinutesAndHours(allData[scan].endTime);
+
+        var startingHour = getHourfromSplitTimeArray(startingTime);
+
+        var startingMinute = getMinutesFromSplitTimeArray(startingTime);
+
+        var endingHour = getHourfromSplitTimeArray(endingTime);
+        var endingMinute = parseInt(getMinutesFromSplitTimeArray(endingTime));
+        totalMinutes = totalMinutes + (endingMinute - startingMinute);
+      }
+    }
+    scanTypeData.push(totalMinutes);
+
+    totalMinutes = 0;
   }
 }
 
 function createScanTypeLabel(scanType) {
   if (!scanTypeLabel.includes(scanType)) {
-    // if (scanType === " ") {
-    //   scanTypeLabel.push(scanType);
-    // } else {
     scanTypeLabel.push(scanType);
-    //}
   }
 }
-console.log(scanTypeLabel);
 
-// scanTypeLabel.forEach((x) => {
-//   counts[x] = (counts[x] || 0) + 1;
-// });
-//console.log(counts);
 const data = {
   labels: scanTypeLabel,
   datasets: [
     {
       label: "Machine Usage Percentage",
-      data: [3, 54, 34, 15, 45],
+      data: scanTypeData,
       backgroundColor: [
         "rgb(255, 99, 132)",
         "rgb(75, 192, 192)",
