@@ -1,7 +1,7 @@
 var machineDowntimeData = [];
 var machineUsedTimeData = [];
 var todaysDate = new Date().toISOString().split("T")[0];
-console.log(todaysDate);
+
 machineData = [
   {
     startTime: "7:30",

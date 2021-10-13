@@ -40,12 +40,6 @@ machineData = [
     timeType: "Usage Time",
   },
   {
-    startTime: "12:30",
-    endTime: "12:40",
-    scanType: "Change Over",
-    timeType: "Change Over",
-  },
-  {
     startTime: "12:40",
     endTime: "12:60",
     scanType: "Spine Scan",
@@ -58,12 +52,6 @@ machineData = [
     timeType: "Down Time",
   },
   {
-    startTime: "13:35",
-    endTime: "13:40",
-    scanType: "Change Over",
-    timeType: "Change Over",
-  },
-  {
     startTime: "14:15",
     endTime: "14:25",
     scanType: "Down",
@@ -72,17 +60,23 @@ machineData = [
 ];
 ///// main call sequence
 getScanLabelsAsArray(machineData);
+console.log(scanTypeLabel);
 getUsageMinutes(scanTypeLabel, machineData);
-console.log(scanTypeData);
+
 convertMinutesIntoPercentage(scanTypeData);
-console.log(scanTypeDataInPercentage);
+//console.log(scanTypeDataInPercentage);
+adjustWithChangeOver();
 ////// All Funcations
-function convertMinutesIntoPercentage(minutesForAllUsage) {
-  for (entry in minutesForAllUsage) {
-    var usagePercentage = (minutesForAllUsage[entry] / 540) * 100;
-    scanTypeDataInPercentage.push(usagePercentage);
-  }
+var sumOfUsage = scanTypeData.reduce((total, amount) => total + amount);
+
+function adjustWithChangeOver() {
+  let sumOfUsage = scanTypeData.reduce((total, amount) => total + amount);
+  let machineFree = ((540 - sumOfUsage) / 540) * 100;
+
+  scanTypeLabel.push("Free Machine");
+  scanTypeDataInPercentage.push(machineFree);
 }
+
 function getMinutesFromSplitTimeArray(time) {
   return time[1];
 }
@@ -96,8 +90,17 @@ function getScanLabelsAsArray(allData) {
   for (var scan in allData) {
     createScanTypeLabel(allData[scan].scanType);
   }
+  //scanTypeLabel.push("Free of Use");
 }
+function convertMinutesIntoPercentage(minutesForAllUsage) {
+  for (entry in minutesForAllUsage) {
+    const usagePercentage = (minutesForAllUsage[entry] / 540) * 100;
 
+    scanTypeDataInPercentage.push(usagePercentage);
+  }
+  // console.log(scanTypeDataInPercentage);
+  // scanTypeDataInPercentage.push(adjustWithChangeOver());
+}
 function getUsageMinutes(allLabels, allData) {
   var totalMinutes = 0;
   for (var label in allLabels) {
@@ -119,7 +122,6 @@ function getUsageMinutes(allLabels, allData) {
       }
     }
     scanTypeData.push(totalMinutes);
-
     totalMinutes = 0;
   }
 }
@@ -141,7 +143,6 @@ const data = {
         "#009688",
         "#d0021b",
         "#2196f3",
-        "#e91e63",
         "#673ab7",
         "#03a9f4",
         "#9c27b0",
