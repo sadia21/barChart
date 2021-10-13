@@ -59,6 +59,12 @@ machineData = [
   },
 ];
 //console.log(machineData.length);
+function getMinutesFromSplitTimeArray(time) {
+  return time[1];
+}
+function getHourfromSplitTimeArray(time) {
+  return time[0];
+}
 function splitTimeIntoMinutesAndHours(timeToSplit) {
   return timeToSplit.split(":");
 }
@@ -67,11 +73,12 @@ for (var scan in machineData) {
 
   var endingTime = splitTimeIntoMinutesAndHours(machineData[scan].endTime);
 
-  var startingHour = startingTime[0];
+  var startingHour = getHourfromSplitTimeArray(startingTime);
 
-  var startingMinute = startingTime[1];
-  var endingHour = endingTime[0];
-  var endingMinute = endingTime[1];
+  var startingMinute = getMinutesFromSplitTimeArray(startingTime);
+
+  var endingHour = getHourfromSplitTimeArray(endingTime);
+  var endingMinute = getMinutesFromSplitTimeArray(endingTime);
   if (startingHour === endingHour) {
     var timecal = endingMinute - startingMinute;
     lengthofscan.push(timecal);
