@@ -1,7 +1,6 @@
 var scanTypeData = [];
 var scanTypeLabel = [];
-var counts = {};
-var lengthofscan = [];
+var scanTypeDataInPercentage = [];
 machineData = [
   {
     startTime: "7:30",
@@ -40,6 +39,12 @@ machineData = [
     timeType: "Usage Time",
   },
   {
+    startTime: "12:30",
+    endTime: "12:40",
+    scanType: "Change Over",
+    timeType: "Change Over",
+  },
+  {
     startTime: "12:40",
     endTime: "12:60",
     scanType: "Spine Scan",
@@ -47,21 +52,36 @@ machineData = [
   },
   {
     startTime: "13:15",
-    endTime: "13:45",
-    scanType: " ",
+    endTime: "13:25",
+    scanType: "Down",
     timeType: "Down Time",
   },
   {
+    startTime: "13:35",
+    endTime: "13:40",
+    scanType: "Change Over",
+    timeType: "Change Over",
+  },
+  {
     startTime: "14:15",
-    endTime: "14:50",
-    scanType: " ",
+    endTime: "14:25",
+    scanType: "Down",
     timeType: "Down Time",
   },
 ];
 ///// main call sequence
 getScanLabelsAsArray(machineData);
 getUsageMinutes(scanTypeLabel, machineData);
+console.log(scanTypeData);
+convertMinutesIntoPercentage(scanTypeData);
+console.log(scanTypeDataInPercentage);
 ////// All Funcations
+function convertMinutesIntoPercentage(minutesForAllUsage) {
+  for (entry in minutesForAllUsage) {
+    var usagePercentage = (minutesForAllUsage[entry] / 540) * 100;
+    scanTypeDataInPercentage.push(usagePercentage);
+  }
+}
 function getMinutesFromSplitTimeArray(time) {
   return time[1];
 }
@@ -115,7 +135,7 @@ const data = {
   datasets: [
     {
       label: "Machine Usage Percentage",
-      data: scanTypeData,
+      data: scanTypeDataInPercentage,
       backgroundColor: [
         "rgb(255, 99, 132)",
         "rgb(75, 192, 192)",
