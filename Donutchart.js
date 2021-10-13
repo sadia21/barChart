@@ -165,6 +165,14 @@ const config = {
           family: "Poppins",
         },
       },
+      subtitle: {
+        display: true,
+        text: "We can add some more information here if needed",
+        font: {
+          size: 12,
+          family: "Poppins",
+        },
+      },
     },
   },
 };
