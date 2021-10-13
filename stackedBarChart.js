@@ -10,6 +10,12 @@ machineData = [
     timeType: "Usage Time",
   },
   {
+    startTime: "7:00",
+    endTime: "7:25",
+    scanType: "Shoulder Scan",
+    timeType: "Usage Time",
+  },
+  {
     startTime: "8:10",
     endTime: "8:45",
     scanType: "Head Scan",
@@ -28,9 +34,33 @@ machineData = [
     timeType: "Usage Time",
   },
   {
+    startTime: "10:00",
+    endTime: "10:25",
+    scanType: "Leg Scan",
+    timeType: "Usage Time",
+  },
+  {
+    startTime: "10:30",
+    endTime: "10:55",
+    scanType: "Leg Scan",
+    timeType: "Usage Time",
+  },
+  {
+    startTime: "11:02",
+    endTime: "11:12",
+    scanType: "Leg Scan",
+    timeType: "Usage Time",
+  },
+  {
     startTime: "11:15",
     endTime: "11:45",
     scanType: "Spine Scan",
+    timeType: "Usage Time",
+  },
+  {
+    startTime: "12:02",
+    endTime: "12:12",
+    scanType: "Head Scan",
     timeType: "Usage Time",
   },
   {
@@ -40,14 +70,14 @@ machineData = [
     timeType: "Usage Time",
   },
   {
-    startTime: "12:30",
-    endTime: "12:40",
-    scanType: "Change Over",
-    timeType: "Change Over",
-  },
-  {
     startTime: "12:40",
     endTime: "12:60",
+    scanType: "Spine Scan",
+    timeType: "Usage Time",
+  },
+  {
+    startTime: "13:00",
+    endTime: "13:15",
     scanType: "Spine Scan",
     timeType: "Usage Time",
   },
@@ -58,16 +88,28 @@ machineData = [
     timeType: "Down Time",
   },
   {
-    startTime: "13:35",
-    endTime: "13:40",
-    scanType: "Change Over",
-    timeType: "Change Over",
+    startTime: "13:27",
+    endTime: "13:55",
+    scanType: "Spine Scan",
+    timeType: "Usage Time",
+  },
+  {
+    startTime: "14:0",
+    endTime: "14:15",
+    scanType: "Shoulder Scan",
+    timeType: "Usage Time",
   },
   {
     startTime: "14:15",
     endTime: "14:25",
     scanType: "Down",
     timeType: "Down Time",
+  },
+  {
+    startTime: "14:30",
+    endTime: "14:55",
+    scanType: "Shoulder Scan",
+    timeType: "Usage Time",
   },
 ];
 for (var scan in machineData) {
