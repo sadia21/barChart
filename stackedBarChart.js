@@ -1,5 +1,7 @@
 var machineDowntimeData = [];
 var machineUsedTimeData = [];
+var todaysDate = new Date().toISOString().split("T")[0];
+console.log(todaysDate);
 machineData = [
   {
     startTime: "7:30",
@@ -131,12 +133,24 @@ new Chart(document.getElementById("stackedbar-chart"), {
     ],
   },
   options: {
-    legend: { display: false },
-    title: {
-      display: true,
-      text: "Predicted performance utilization chart of Machines",
+    plugins: {
+      title: {
+        display: true,
+        text: "Machine Usage over time for: " + todaysDate,
+        font: {
+          size: 14,
+          family: "Poppins",
+        },
+      },
+      subtitle: {
+        display: true,
+        text: "We can add some more information here if needed",
+        font: {
+          size: 12,
+          family: "Poppins",
+        },
+      },
     },
-
     animation: {
       onComplete: () => {
         delayed = true;
