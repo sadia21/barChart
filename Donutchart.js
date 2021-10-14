@@ -125,7 +125,7 @@ var sumOfUsage = scanTypeData.reduce((total, amount) => total + amount);
 
 function adjustWithChangeOver() {
   let sumOfUsage = scanTypeData.reduce((total, amount) => total + amount);
-  let machineFree = ((540 - sumOfUsage) / 540) * 100;
+  let machineFree = Math.round(((540 - sumOfUsage) / 540) * 100);
 
   scanTypeLabel.push("Free Machine");
   scanTypeDataInPercentage.push(machineFree);
@@ -148,7 +148,7 @@ function getScanLabelsAsArray(allData) {
 }
 function convertMinutesIntoPercentage(minutesForAllUsage) {
   for (entry in minutesForAllUsage) {
-    const usagePercentage = (minutesForAllUsage[entry] / 540) * 100;
+    const usagePercentage = Math.round((minutesForAllUsage[entry] / 540) * 100);
 
     scanTypeDataInPercentage.push(usagePercentage);
   }
@@ -179,7 +179,7 @@ function getUsageMinutes(allLabels, allData) {
     totalMinutes = 0;
   }
 }
-
+console.log(scanTypeLabel);
 function createScanTypeLabel(scanType) {
   if (!scanTypeLabel.includes(scanType)) {
     scanTypeLabel.push(scanType);
@@ -193,12 +193,12 @@ const data = {
       label: "Machine Usage Percentage",
       data: scanTypeDataInPercentage,
       backgroundColor: [
-        "#ff9800",
-        "#009688",
-        "#2196f3",
-        "#9c27b0",
-        "#607d8b",
-        "#4caf50",
+        "lightgreen",
+        "lightgreen",
+        "lightgreen",
+        "lightgreen",
+        "red",
+        "grey",
         "#d0021b",
         "#03a9f4",
       ],
