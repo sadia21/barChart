@@ -1,120 +1,222 @@
-var downTimeData = [];
-console.log("hain g");
-var machineData = [
+var machineDowntimeData = [];
+var machineUsedTimeData = [];
+var todaysDate = new Date().toISOString().split("T")[0];
+
+machineData = [
   {
-    startTime: "10:30",
-    endTime: "10:50",
+    startTime: "7:30",
+    endTime: "7:50",
     scanType: "Head Scan",
     timeType: "Usage Time",
   },
   {
-    startTime: "11:15",
-    endTime: "11:30",
+    startTime: "7:00",
+    endTime: "7:25",
+    scanType: "Shoulder Scan",
+    timeType: "Usage Time",
+  },
+  {
+    startTime: "8:10",
+    endTime: "8:45",
+    scanType: "Head Scan",
+    timeType: "Usage Time",
+  },
+  {
+    startTime: "9:05",
+    endTime: "9:25",
     scanType: "Leg Scan",
     timeType: "Usage Time",
   },
   {
-    startTime: "11:45",
-    endTime: "12:10",
+    startTime: "9:30",
+    endTime: "9:55",
+    scanType: "Leg Scan",
+    timeType: "Usage Time",
+  },
+  {
+    startTime: "10:00",
+    endTime: "10:25",
+    scanType: "Leg Scan",
+    timeType: "Usage Time",
+  },
+  {
+    startTime: "10:30",
+    endTime: "10:55",
+    scanType: "Leg Scan",
+    timeType: "Usage Time",
+  },
+  {
+    startTime: "11:02",
+    endTime: "11:12",
+    scanType: "Leg Scan",
+    timeType: "Usage Time",
+  },
+  {
+    startTime: "11:15",
+    endTime: "11:45",
     scanType: "Spine Scan",
+    timeType: "Usage Time",
+  },
+  {
+    startTime: "12:02",
+    endTime: "12:12",
+    scanType: "Head Scan",
     timeType: "Usage Time",
   },
   {
     startTime: "12:15",
     endTime: "12:30",
-    scanType: " ",
+    scanType: "Head Scan",
+    timeType: "Usage Time",
+  },
+  {
+    startTime: "12:40",
+    endTime: "12:60",
+    scanType: "Spine Scan",
+    timeType: "Usage Time",
+  },
+  {
+    startTime: "13:00",
+    endTime: "13:15",
+    scanType: "Spine Scan",
+    timeType: "Usage Time",
+  },
+  {
+    startTime: "13:15",
+    endTime: "13:25",
+    scanType: "Down",
     timeType: "Down Time",
   },
+  {
+    startTime: "13:27",
+    endTime: "13:55",
+    scanType: "Spine Scan",
+    timeType: "Usage Time",
+  },
+  {
+    startTime: "14:0",
+    endTime: "14:15",
+    scanType: "Shoulder Scan",
+    timeType: "Usage Time",
+  },
+  {
+    startTime: "14:15",
+    endTime: "14:25",
+    scanType: "Down",
+    timeType: "Down Time",
+  },
+  {
+    startTime: "14:30",
+    endTime: "14:55",
+    scanType: "Shoulder Scan",
+    timeType: "Usage Time",
+  },
 ];
-var object = machineData; // = JSON.parse(JSON.stringify(machineData));
+for (var scan in machineData) {
+  var startingTime = machineData[scan].startTime.split(":");
+  var endingTime = machineData[scan].endTime.split(":");
+  var startingHour = startingTime[0];
 
-for (var scan in object) {
-  if (object[scan].timeType === "Down Time") {
-    console.log("This is a downtime ");
-    var startingHours;
-    var endingHours;
-    console.log(object[scan].startTime);
-    startingHours = object[scan].startTime.split(":");
-    endingHours = object[scan].endTime.split(":");
-    var startingHoursToPush = startingHours[0];
-    var endingHoursToPush = endingHours[0];
+  var startingMinute = startingTime[1];
+  var endingHour = endingTime[0];
 
-    if (startingHours[0] === endingHours[0]) {
-      downTimeData.push({
-        x: startingHoursToPush + ":00",
-        y: startingHours[1] + "," + endingHours[1],
+  var endingMinute = endingTime[1];
+
+  if (machineData[scan].timeType === "Down Time") {
+    if (startingHour === endingHour) {
+      machineDowntimeData.push({
+        x: startingHour + ":00",
+        y: [startingMinute, endingMinute],
       });
-
-      console.log("data pushed = " + startingHoursToPush);
     }
   }
-  console.log(downTimeData);
+  if (machineData[scan].timeType === "Usage Time") {
+    if (startingHour === endingHour) {
+      machineUsedTimeData.push({
+        x: startingHour + ":00",
+        y: [startingMinute, endingMinute],
+      });
+    }
+  }
 }
-
 var delayed;
 new Chart(document.getElementById("stackedbar-chart"), {
   type: "bar",
   data: {
     datasets: [
       {
-        label: "Machine in use",
-        backgroundColor: "lightgreen",
-        borderColor: "lightgreen",
         data: [
           {
             x: "7:00",
-            y: [50, 60],
-          },
-          {
-            x: "7:00",
-            y: [20, 40],
           },
           {
             x: "8:00",
-            y: [8, 21],
-          },
-          {
-            x: "8:00",
-            y: [34, 41],
-          },
-          {
-            x: "8:00",
-            y: [47, 57],
           },
           {
             x: "9:00",
-            y: [50, 60],
           },
           {
             x: "10:00",
-            y: [30, 43],
+          },
+          {
+            x: "11:00",
+          },
+          {
+            x: "12:00",
+          },
+          {
+            x: "13:00",
+          },
+          {
+            x: "14:00",
+          },
+          {
+            x: "15:00",
+          },
+          {
+            x: "16:00",
+          },
+          {
+            x: "17:00",
+          },
+          {
+            x: "18:00",
           },
         ],
+      },
+      {
+        label: "Machine in use",
+        backgroundColor: "lightgreen",
+        borderColor: "lightgreen",
+        data: machineUsedTimeData,
       },
       {
         label: "Down time",
         backgroundColor: "red",
         borderColor: "red",
-        data: [
-          {
-            x: "10:00",
-            y: [10, 18],
-          },
-          {
-            x: "9:00",
-            y: [20, 50],
-          },
-        ],
+        data: machineDowntimeData,
       },
     ],
   },
   options: {
-    legend: { display: false },
-    title: {
-      display: true,
-      text: "Predicted performance utilization chart of Machines",
+    plugins: {
+      title: {
+        display: true,
+        text: "Machine Usage over time for: " + todaysDate,
+        font: {
+          size: 14,
+          family: "Poppins",
+        },
+      },
+      subtitle: {
+        display: true,
+        text: "We can add some more information here if needed",
+        font: {
+          size: 12,
+          family: "Poppins",
+        },
+      },
     },
-
     animation: {
       onComplete: () => {
         delayed = true;

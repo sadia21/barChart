@@ -1,4 +1,6 @@
 {
+    "scanDate" : "11-10-2021",
+    "machineName" : "MRI Scanning Machine",
     "machineData": [{
         "startTime" : "10:30",
         "endTime" : "10:50",
