@@ -231,4 +231,19 @@ const config = {
   },
 };
 
-var myChart = new Chart(document.getElementById("donut-chart"), config);
+//var myChart = new Chart(document.getElementById("donut-chart"), config);
+var cv = document.getElementById("donut-chart");
+var ctx = cv.getContext("2d");
+var myChart = new Chart(ctx, config);
+cv.onclick = function (e) {
+  const points = myChart.getElementsAtEventForMode(
+    e,
+    "nearest",
+    { intersect: true },
+    true
+  );
+  if (points.length) {
+    const firstPoint = points[0];
+    const value = window.open("https://upptimely.com/#whoweare", "_blank");
+  }
+};
