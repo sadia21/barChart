@@ -2,6 +2,7 @@ var scanTypeData = [];
 var scanTypeLabel = [];
 var scanTypeDataInPercentage = [];
 var machineName = "MRI Aleris Danderyd";
+var backgroundColorArray = [];
 
 machineData = [
   {
@@ -188,14 +189,15 @@ machineData = [
 
 ///// main call sequence
 getScanLabelsAsArray(machineData);
-console.log(scanTypeLabel);
+console.log("this is scantypelabel" + scanTypeLabel);
 getUsageMinutes(scanTypeLabel, machineData);
 
 convertMinutesIntoPercentage(scanTypeData);
 //console.log(scanTypeDataInPercentage);
 adjustWithChangeOver();
+createBackgroudnColors(scanTypeLabel);
 ////// All Funcations
-var sumOfUsage = scanTypeData.reduce((total, amount) => total + amount);
+//var sumOfUsage = scanTypeData.reduce((total, amount) => total + amount);
 
 function adjustWithChangeOver() {
   let sumOfUsage = scanTypeData.reduce((total, amount) => total + amount);
@@ -216,7 +218,7 @@ function splitTimeIntoMinutesAndHours(timeToSplit) {
 }
 function getScanLabelsAsArray(allData) {
   for (var scan in allData) {
-    createScanTypeLabel(allData[scan].scanType);
+    checkScanTypeLabel(allData[scan].scanType);
   }
   //scanTypeLabel.push("Free of Use");
 }
@@ -253,29 +255,38 @@ function getUsageMinutes(allLabels, allData) {
     totalMinutes = 0;
   }
 }
-console.log(scanTypeLabel);
-function createScanTypeLabel(scanType) {
+
+function checkScanTypeLabel(scanType) {
   if (!scanTypeLabel.includes(scanType)) {
     scanTypeLabel.push(scanType);
   }
 }
-
+function createBackgroudnColors(scanlabels) {
+  for (let label in scanlabels) {
+    console.log("THis is scan lablel before switch " + scanlabels);
+    switch (scanlabels[label]) {
+      case "Prep Time":
+        colorArray = "#ffea00";
+        console.log("NOw we are in Prep Time");
+        break;
+      case "Down":
+        colorArray = "#ff1744";
+        break;
+      default:
+        colorArray = "#43a047";
+    }
+    backgroundColorArray.push(colorArray);
+    backgroundColorArray.sort();
+  }
+}
+console.log(backgroundColorArray);
 const data = {
   labels: scanTypeLabel,
   datasets: [
     {
       label: "Machine Usage Percentage",
       data: scanTypeDataInPercentage,
-      backgroundColor: [
-        "yellow",
-        "lightgreen",
-        "lightgreen",
-        "lightgreen",
-        "lightgreen",
-        "red",
-        "grey",
-        "#03a9f4",
-      ],
+      backgroundColor: backgroundColorArray,
     },
   ],
 };
