@@ -2,7 +2,14 @@ var scanTypeData = [];
 var scanTypeLabel = [];
 var scanTypeDataInPercentage = [];
 var machineName = "MRI Aleris Danderyd";
+
 machineData = [
+  {
+    startTime: "7:25",
+    endTime: "7:30",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
+  },
   {
     startTime: "7:30",
     endTime: "7:50",
@@ -10,22 +17,46 @@ machineData = [
     timeType: "Usage Time",
   },
   {
-    startTime: "7:00",
-    endTime: "7:25",
-    scanType: "Shoulder Scan",
-    timeType: "Usage Time",
+    startTime: "8:00",
+    endTime: "8:10",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
   },
   {
     startTime: "8:10",
-    endTime: "8:45",
+    endTime: "8:30",
+    scanType: "Head Scan",
+    timeType: "Usage Time",
+  },
+  {
+    startTime: "8:30",
+    endTime: "8:35",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
+  },
+  {
+    startTime: "8:35",
+    endTime: "8:60",
     scanType: "Head Scan",
     timeType: "Usage Time",
   },
   {
     startTime: "9:05",
+    endTime: "9:15",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
+  },
+  {
+    startTime: "9:15",
     endTime: "9:25",
     scanType: "Leg Scan",
     timeType: "Usage Time",
+  },
+  {
+    startTime: "9:25",
+    endTime: "9:30",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
   },
   {
     startTime: "9:30",
@@ -34,13 +65,25 @@ machineData = [
     timeType: "Usage Time",
   },
   {
-    startTime: "10:00",
-    endTime: "10:25",
+    startTime: "10:05",
+    endTime: "10:10",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
+  },
+  {
+    startTime: "10:10",
+    endTime: "10:15",
     scanType: "Leg Scan",
     timeType: "Usage Time",
   },
   {
-    startTime: "10:30",
+    startTime: "10:15",
+    endTime: "10:20",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
+  },
+  {
+    startTime: "10:20",
     endTime: "10:55",
     scanType: "Leg Scan",
     timeType: "Usage Time",
@@ -48,26 +91,44 @@ machineData = [
   {
     startTime: "11:02",
     endTime: "11:12",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
+  },
+  {
+    startTime: "11:12",
+    endTime: "11:32",
     scanType: "Leg Scan",
     timeType: "Usage Time",
   },
   {
-    startTime: "11:15",
-    endTime: "11:45",
+    startTime: "11:32",
+    endTime: "11:40",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
+  },
+  {
+    startTime: "11:40",
+    endTime: "11:60",
     scanType: "Spine Scan",
     timeType: "Usage Time",
   },
   {
     startTime: "12:02",
-    endTime: "12:12",
-    scanType: "Head Scan",
-    timeType: "Usage Time",
+    endTime: "12:15",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
   },
   {
     startTime: "12:15",
     endTime: "12:30",
     scanType: "Head Scan",
     timeType: "Usage Time",
+  },
+  {
+    startTime: "12:30",
+    endTime: "12:40",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
   },
   {
     startTime: "12:40",
@@ -77,27 +138,39 @@ machineData = [
   },
   {
     startTime: "13:00",
-    endTime: "13:15",
+    endTime: "13:10",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
+  },
+  {
+    startTime: "13:10",
+    endTime: "13:20",
     scanType: "Spine Scan",
     timeType: "Usage Time",
   },
   {
-    startTime: "13:15",
-    endTime: "13:25",
+    startTime: "13:20",
+    endTime: "13:35",
     scanType: "Down",
     timeType: "Down Time",
   },
   {
-    startTime: "13:27",
+    startTime: "13:35",
+    endTime: "13:40",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
+  },
+  {
+    startTime: "13:40",
     endTime: "13:55",
     scanType: "Spine Scan",
     timeType: "Usage Time",
   },
   {
-    startTime: "14:0",
+    startTime: "14:05",
     endTime: "14:15",
-    scanType: "Shoulder Scan",
-    timeType: "Usage Time",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
   },
   {
     startTime: "14:15",
@@ -106,12 +179,13 @@ machineData = [
     timeType: "Down Time",
   },
   {
-    startTime: "14:30",
+    startTime: "14:25",
     endTime: "14:55",
     scanType: "Shoulder Scan",
     timeType: "Usage Time",
   },
 ];
+
 ///// main call sequence
 getScanLabelsAsArray(machineData);
 console.log(scanTypeLabel);
@@ -193,13 +267,13 @@ const data = {
       label: "Machine Usage Percentage",
       data: scanTypeDataInPercentage,
       backgroundColor: [
+        "yellow",
         "lightgreen",
         "lightgreen",
         "lightgreen",
         "lightgreen",
         "red",
         "grey",
-        "#d0021b",
         "#03a9f4",
       ],
     },
