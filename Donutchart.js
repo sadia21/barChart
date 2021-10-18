@@ -189,21 +189,21 @@ machineData = [
 
 ///// main call sequence
 getScanLabelsAsArray(machineData);
-console.log("this is scantypelabel" + scanTypeLabel);
+
 getUsageMinutes(scanTypeLabel, machineData);
 
 convertMinutesIntoPercentage(scanTypeData);
-//console.log(scanTypeDataInPercentage);
+
 adjustWithChangeOver();
 createBackgroudnColors(scanTypeLabel);
 ////// All Funcations
-//var sumOfUsage = scanTypeData.reduce((total, amount) => total + amount);
 
 function adjustWithChangeOver() {
   let sumOfUsage = scanTypeData.reduce((total, amount) => total + amount);
   let machineFree = Math.round(((540 - sumOfUsage) / 540) * 100);
 
   scanTypeLabel.push("Free Machine");
+
   scanTypeDataInPercentage.push(machineFree);
 }
 
@@ -220,7 +220,6 @@ function getScanLabelsAsArray(allData) {
   for (var scan in allData) {
     checkScanTypeLabel(allData[scan].scanType);
   }
-  //scanTypeLabel.push("Free of Use");
 }
 function convertMinutesIntoPercentage(minutesForAllUsage) {
   for (entry in minutesForAllUsage) {
@@ -228,8 +227,6 @@ function convertMinutesIntoPercentage(minutesForAllUsage) {
 
     scanTypeDataInPercentage.push(usagePercentage);
   }
-  // console.log(scanTypeDataInPercentage);
-  // scanTypeDataInPercentage.push(adjustWithChangeOver());
 }
 function getUsageMinutes(allLabels, allData) {
   var totalMinutes = 0;
@@ -263,23 +260,25 @@ function checkScanTypeLabel(scanType) {
 }
 function createBackgroudnColors(scanlabels) {
   for (let label in scanlabels) {
-    console.log("THis is scan lablel before switch " + scanlabels);
     switch (scanlabels[label]) {
       case "Prep Time":
         colorArray = "#ffea00";
-        console.log("NOw we are in Prep Time");
+
         break;
       case "Down":
         colorArray = "#ff1744";
+        break;
+      case "Free Machine":
+        colorArray = "#C0C0C0";
         break;
       default:
         colorArray = "#43a047";
     }
     backgroundColorArray.push(colorArray);
-    backgroundColorArray.sort();
+    //backgroundColorArray.sort();
   }
 }
-console.log(backgroundColorArray);
+
 const data = {
   labels: scanTypeLabel,
   datasets: [
@@ -316,19 +315,5 @@ const config = {
   },
 };
 
-//var myChart = new Chart(document.getElementById("donut-chart"), config);
-var cv = document.getElementById("donut-chart");
-var ctx = cv.getContext("2d");
+var ctx = document.getElementById("donut-chart").getContext("2d");
 var myChart = new Chart(ctx, config);
-cv.onclick = function (e) {
-  const points = myChart.getElementsAtEventForMode(
-    e,
-    "nearest",
-    { intersect: true },
-    true
-  );
-  if (points.length) {
-    const firstPoint = points[0];
-    const value = window.open("https://upptimely.com/#whoweare", "_blank");
-  }
-};

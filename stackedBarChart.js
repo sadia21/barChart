@@ -185,19 +185,32 @@ machineData = [
     timeType: "Usage Time",
   },
 ];
-for (var scan in machineData) {
-  var startingTime = machineData[scan].startTime.split(":");
-  var endingTime = machineData[scan].endTime.split(":");
+function splitTime(timetoSplit) {
+  return timetoSplit.split(":");
+}
+function getThehours(spliteddata) {
+  return spliteddata[0];
+}
+function getTheminutes(spliteddata) {
+  return spliteddata[1];
+}
+function concateHour(hours) {
+  return hours + ":00";
+}
 
-  var startingHour = startingTime[0];
-  var startingMinute = startingTime[1];
-  var endingHour = endingTime[0];
-  var endingMinute = endingTime[1];
+for (var scan in machineData) {
+  var startingTime = splitTime(machineData[scan].startTime);
+  var endingTime = splitTime(machineData[scan].endTime);
+
+  var startingHour = getThehours(startingTime);
+  var startingMinute = getTheminutes(startingTime);
+  var endingHour = getThehours(endingTime);
+  var endingMinute = getTheminutes(endingTime);
 
   if (machineData[scan].timeType === "Prep Time") {
     if (startingHour === endingHour) {
       machinePreptimeData.push({
-        x: startingHour + ":00",
+        x: concateHour(startingHour),
         y: [startingMinute, endingMinute],
       });
     }
@@ -205,7 +218,7 @@ for (var scan in machineData) {
   if (machineData[scan].timeType === "Down Time") {
     if (startingHour === endingHour) {
       machineDowntimeData.push({
-        x: startingHour + ":00",
+        x: concateHour(startingHour),
         y: [startingMinute, endingMinute],
       });
     }
@@ -213,12 +226,13 @@ for (var scan in machineData) {
   if (machineData[scan].timeType === "Usage Time") {
     if (startingHour === endingHour) {
       machineUsedTimeData.push({
-        x: startingHour + ":00",
+        x: concateHour(startingHour),
         y: [startingMinute, endingMinute],
       });
     }
   }
 }
+
 var delayed;
 new Chart(document.getElementById("stackedbar-chart"), {
   type: "bar",
