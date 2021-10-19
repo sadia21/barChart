@@ -294,6 +294,14 @@ const config = {
   type: "doughnut",
   data: data,
   options: {
+    elements: {
+      center: {
+        text: "this",
+      },
+    },
+    legend: {
+      display: false,
+    },
     plugins: {
       title: {
         display: true,
