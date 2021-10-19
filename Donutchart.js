@@ -221,12 +221,17 @@ function getScanLabelsAsArray(allData) {
     checkScanTypeLabel(allData[scan].scanType);
   }
 }
+
 function convertMinutesIntoPercentage(minutesForAllUsage) {
   for (entry in minutesForAllUsage) {
     const usagePercentage = Math.round((minutesForAllUsage[entry] / 540) * 100);
-
+    //console.log(usagePercentage);
     scanTypeDataInPercentage.push(usagePercentage);
+
+    var sum = 0;
+    scanTypeDataInPercentage.forEach((n) => (sum += n));
   }
+  console.log(sum);
 }
 function getUsageMinutes(allLabels, allData) {
   var totalMinutes = 0;
