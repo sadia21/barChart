@@ -1,10 +1,11 @@
+import * as utils from "./utils.js";
 var scanTypeData = [];
 var scanTypeLabel = [];
 var scanTypeDataInPercentage = [];
 var machineName = "MRI Aleris Danderyd";
 var backgroundColorArray = [];
 
-machineData = [
+var machineData = [
   {
     startTime: "7:25",
     endTime: "7:30",
@@ -213,9 +214,9 @@ function getMinutesFromSplitTimeArray(time) {
 function getHourfromSplitTimeArray(time) {
   return time[0];
 }
-function splitTimeIntoMinutesAndHours(timeToSplit) {
-  return timeToSplit.split(":");
-}
+// function splitTime(timeToSplit) {
+//   return timeToSplit.split(":");
+// }
 function getScanLabelsAsArray(allData) {
   for (var scan in allData) {
     checkScanTypeLabel(allData[scan].scanType);
@@ -223,7 +224,7 @@ function getScanLabelsAsArray(allData) {
 }
 
 function convertMinutesIntoPercentage(minutesForAllUsage) {
-  for (entry in minutesForAllUsage) {
+  for (let entry in minutesForAllUsage) {
     const usagePercentage = Math.round((minutesForAllUsage[entry] / 540) * 100);
     //console.log(usagePercentage);
     scanTypeDataInPercentage.push(usagePercentage);
@@ -238,11 +239,9 @@ function getUsageMinutes(allLabels, allData) {
   for (var label in allLabels) {
     for (var scan in allData) {
       if (allLabels[label] === allData[scan].scanType) {
-        var startingTime = splitTimeIntoMinutesAndHours(
-          allData[scan].startTime
-        );
+        var startingTime = utils.splitTime(allData[scan].startTime);
 
-        var endingTime = splitTimeIntoMinutesAndHours(allData[scan].endTime);
+        var endingTime = utils.splitTime(allData[scan].endTime);
 
         var startingHour = getHourfromSplitTimeArray(startingTime);
 
@@ -265,6 +264,7 @@ function checkScanTypeLabel(scanType) {
 }
 function createBackgroudnColors(scanlabels) {
   for (let label in scanlabels) {
+    let colorArray = " ";
     switch (scanlabels[label]) {
       case "Prep Time":
         colorArray = "#ffea00";

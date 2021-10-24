@@ -1,9 +1,12 @@
+//import React from "react";
+//import { plus } from "./";
+import * as utils from "./utils.js";
 var machinePreptimeData = [];
 var machineDowntimeData = [];
 var machineUsedTimeData = [];
 var todaysDate = new Date().toISOString().split("T")[0];
 
-machineData = [
+var machineData = [
   {
     startTime: "7:25",
     endTime: "7:30",
@@ -185,9 +188,10 @@ machineData = [
     timeType: "Usage Time",
   },
 ];
-function splitTime(timetoSplit) {
-  return timetoSplit.split(":");
-}
+
+// function splitTime(timetoSplit) {
+//   return timetoSplit.split(":");
+// }
 function getThehours(spliteddata) {
   return spliteddata[0];
 }
@@ -199,8 +203,9 @@ function concateHour(hours) {
 }
 
 for (var scan in machineData) {
-  var startingTime = splitTime(machineData[scan].startTime);
-  var endingTime = splitTime(machineData[scan].endTime);
+  // var startingTime = utils.splitTime(machineData[scan].startTime);
+  var startingTime = utils.splitTime(machineData[scan].startTime);
+  var endingTime = utils.splitTime(machineData[scan].endTime);
 
   var startingHour = getThehours(startingTime);
   var startingMinute = getTheminutes(startingTime);
