@@ -208,15 +208,6 @@ function adjustWithChangeOver() {
   scanTypeDataInPercentage.push(machineFree);
 }
 
-function getMinutesFromSplitTimeArray(time) {
-  return time[1];
-}
-function getHourfromSplitTimeArray(time) {
-  return time[0];
-}
-// function splitTime(timeToSplit) {
-//   return timeToSplit.split(":");
-// }
 function getScanLabelsAsArray(allData) {
   for (var scan in allData) {
     checkScanTypeLabel(allData[scan].scanType);
@@ -243,12 +234,12 @@ function getUsageMinutes(allLabels, allData) {
 
         var endingTime = utils.splitTime(allData[scan].endTime);
 
-        var startingHour = getHourfromSplitTimeArray(startingTime);
+        var startingHour = utils.getThehours(startingTime);
 
-        var startingMinute = getMinutesFromSplitTimeArray(startingTime);
+        var startingMinute = utils.getTheminutes(startingTime);
 
-        var endingHour = getHourfromSplitTimeArray(endingTime);
-        var endingMinute = parseInt(getMinutesFromSplitTimeArray(endingTime));
+        var endingHour = utils.getThehours(endingTime);
+        var endingMinute = parseInt(utils.getTheminutes(endingTime));
         totalMinutes = totalMinutes + (endingMinute - startingMinute);
       }
     }

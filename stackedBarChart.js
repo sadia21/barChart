@@ -189,28 +189,18 @@ var machineData = [
   },
 ];
 
-// function splitTime(timetoSplit) {
-//   return timetoSplit.split(":");
-// }
-function getThehours(spliteddata) {
-  return spliteddata[0];
-}
-function getTheminutes(spliteddata) {
-  return spliteddata[1];
-}
 function concateHour(hours) {
   return hours + ":00";
 }
 
 for (var scan in machineData) {
-  // var startingTime = utils.splitTime(machineData[scan].startTime);
   var startingTime = utils.splitTime(machineData[scan].startTime);
   var endingTime = utils.splitTime(machineData[scan].endTime);
 
-  var startingHour = getThehours(startingTime);
-  var startingMinute = getTheminutes(startingTime);
-  var endingHour = getThehours(endingTime);
-  var endingMinute = getTheminutes(endingTime);
+  var startingHour = utils.getThehours(startingTime);
+  var startingMinute = utils.getTheminutes(startingTime);
+  var endingHour = utils.getThehours(endingTime);
+  var endingMinute = utils.getTheminutes(endingTime);
 
   if (machineData[scan].timeType === "Prep Time") {
     if (startingHour === endingHour) {
