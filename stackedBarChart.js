@@ -187,6 +187,18 @@ var machineData = [
     scanType: "Shoulder Scan",
     timeType: "Usage Time",
   },
+  {
+    startTime: "15:25",
+    endTime: "15:30",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
+  },
+  {
+    startTime: "15:30",
+    endTime: "15:60",
+    scanType: "Spine Scan",
+    timeType: "Usage Time",
+  },
 ];
 
 function concateHour(hours) {

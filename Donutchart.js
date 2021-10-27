@@ -2,6 +2,7 @@ import * as utils from "./utils.js";
 var scanTypeData = [];
 var scanTypeLabel = [];
 var scanTypeDataInPercentage = [];
+var scanTypeMinutesforGuage = [];
 var machineName = "MRI Aleris Danderyd";
 var backgroundColorArray = [];
 
@@ -20,12 +21,12 @@ var machineData = [
   },
   {
     startTime: "8:00",
-    endTime: "8:10",
+    endTime: "8:05",
     scanType: "Prep Time",
     timeType: "Prep Time",
   },
   {
-    startTime: "8:10",
+    startTime: "8:05",
     endTime: "8:30",
     scanType: "Head Scan",
     timeType: "Usage Time",
@@ -44,12 +45,12 @@ var machineData = [
   },
   {
     startTime: "9:05",
-    endTime: "9:15",
+    endTime: "9:10",
     scanType: "Prep Time",
     timeType: "Prep Time",
   },
   {
-    startTime: "9:15",
+    startTime: "9:10",
     endTime: "9:25",
     scanType: "Leg Scan",
     timeType: "Usage Time",
@@ -146,12 +147,12 @@ var machineData = [
   },
   {
     startTime: "13:10",
-    endTime: "13:20",
+    endTime: "13:15",
     scanType: "Spine Scan",
     timeType: "Usage Time",
   },
   {
-    startTime: "13:20",
+    startTime: "13:15",
     endTime: "13:35",
     scanType: "Down",
     timeType: "Down Time",
@@ -186,6 +187,18 @@ var machineData = [
     scanType: "Shoulder Scan",
     timeType: "Usage Time",
   },
+  {
+    startTime: "15:25",
+    endTime: "15:30",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
+  },
+  {
+    startTime: "15:30",
+    endTime: "15:60",
+    scanType: "Spine Scan",
+    timeType: "Usage Time",
+  },
 ];
 
 ///// main call sequence
@@ -197,6 +210,7 @@ convertMinutesIntoPercentage(scanTypeData);
 
 adjustWithChangeOver();
 createBackgroudnColors(scanTypeLabel);
+
 ////// All Funcations
 
 function adjustWithChangeOver() {
@@ -204,7 +218,6 @@ function adjustWithChangeOver() {
   let machineFree = Math.round(((540 - sumOfUsage) / 540) * 100);
 
   scanTypeLabel.push("Free Machine");
-
   scanTypeDataInPercentage.push(machineFree);
 }
 
@@ -213,18 +226,15 @@ function getScanLabelsAsArray(allData) {
     checkScanTypeLabel(allData[scan].scanType);
   }
 }
-
 function convertMinutesIntoPercentage(minutesForAllUsage) {
   for (let entry in minutesForAllUsage) {
     const usagePercentage = Math.round((minutesForAllUsage[entry] / 540) * 100);
-    //console.log(usagePercentage);
     scanTypeDataInPercentage.push(usagePercentage);
-
-    var sum = 0;
-    scanTypeDataInPercentage.forEach((n) => (sum += n));
   }
-  console.log(sum);
+
+  return scanTypeDataInPercentage;
 }
+
 function getUsageMinutes(allLabels, allData) {
   var totalMinutes = 0;
   for (var label in allLabels) {
@@ -243,6 +253,7 @@ function getUsageMinutes(allLabels, allData) {
         totalMinutes = totalMinutes + (endingMinute - startingMinute);
       }
     }
+
     scanTypeData.push(totalMinutes);
     totalMinutes = 0;
   }
@@ -253,6 +264,7 @@ function checkScanTypeLabel(scanType) {
     scanTypeLabel.push(scanType);
   }
 }
+
 function createBackgroudnColors(scanlabels) {
   for (let label in scanlabels) {
     let colorArray = " ";
@@ -271,10 +283,18 @@ function createBackgroudnColors(scanlabels) {
         colorArray = "#43a047";
     }
     backgroundColorArray.push(colorArray);
-    //backgroundColorArray.sort();
   }
 }
+var percent = 0;
+function getGuageChartPercentage() {
+  percent = utils.getTotalpercentageOfscanData(
+    scanTypeLabel,
+    scanTypeDataInPercentage
+  );
 
+  return percent;
+}
+export { getGuageChartPercentage };
 const data = {
   labels: scanTypeLabel,
   datasets: [

@@ -1,11 +1,16 @@
+import { getTotalpercentageOfscanData } from "./utils.js";
+import { getGuageChartPercentage } from "./donutchart.js";
+
 google.charts.load("current", { packages: ["gauge"] });
 google.charts.setOnLoadCallback(drawChart);
+
+var percentage = getGuageChartPercentage();
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
     // let utalizationvalue = call the function to assign utilaztion value
     // and then replace the utalizaion value on line 8 with variabel above
     ["Label", "Value"],
-    ["Utilization", 77],
+    ["Utilization", percentage],
   ]);
 
   var options = {
@@ -21,11 +26,5 @@ function drawChart() {
   var chart = new google.visualization.Gauge(
     document.getElementById("chart_div")
   );
-
   chart.draw(data, options);
-
-  //   setInterval(function () {
-  //     data.setValue(0, 1, 40 + Math.round(60 * Math.random()));
-  //     chart.draw(data, options);
-  //   }, 13000);
 }
