@@ -1,8 +1,18 @@
+import * as utils from "./utils.js";
 var scanTypeData = [];
 var scanTypeLabel = [];
 var scanTypeDataInPercentage = [];
+var scanTypeMinutesforGuage = [];
 var machineName = "MRI Aleris Danderyd";
-machineData = [
+var backgroundColorArray = [];
+
+var machineData = [
+  {
+    startTime: "7:25",
+    endTime: "7:30",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
+  },
   {
     startTime: "7:30",
     endTime: "7:50",
@@ -10,22 +20,46 @@ machineData = [
     timeType: "Usage Time",
   },
   {
-    startTime: "7:00",
-    endTime: "7:25",
-    scanType: "Shoulder Scan",
+    startTime: "8:00",
+    endTime: "8:05",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
+  },
+  {
+    startTime: "8:05",
+    endTime: "8:30",
+    scanType: "Head Scan",
     timeType: "Usage Time",
   },
   {
-    startTime: "8:10",
-    endTime: "8:45",
+    startTime: "8:30",
+    endTime: "8:35",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
+  },
+  {
+    startTime: "8:35",
+    endTime: "8:60",
     scanType: "Head Scan",
     timeType: "Usage Time",
   },
   {
     startTime: "9:05",
+    endTime: "9:10",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
+  },
+  {
+    startTime: "9:10",
     endTime: "9:25",
     scanType: "Leg Scan",
     timeType: "Usage Time",
+  },
+  {
+    startTime: "9:25",
+    endTime: "9:30",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
   },
   {
     startTime: "9:30",
@@ -34,13 +68,25 @@ machineData = [
     timeType: "Usage Time",
   },
   {
-    startTime: "10:00",
-    endTime: "10:25",
+    startTime: "10:05",
+    endTime: "10:10",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
+  },
+  {
+    startTime: "10:10",
+    endTime: "10:15",
     scanType: "Leg Scan",
     timeType: "Usage Time",
   },
   {
-    startTime: "10:30",
+    startTime: "10:15",
+    endTime: "10:20",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
+  },
+  {
+    startTime: "10:20",
     endTime: "10:55",
     scanType: "Leg Scan",
     timeType: "Usage Time",
@@ -48,26 +94,44 @@ machineData = [
   {
     startTime: "11:02",
     endTime: "11:12",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
+  },
+  {
+    startTime: "11:12",
+    endTime: "11:32",
     scanType: "Leg Scan",
     timeType: "Usage Time",
   },
   {
-    startTime: "11:15",
-    endTime: "11:45",
+    startTime: "11:32",
+    endTime: "11:40",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
+  },
+  {
+    startTime: "11:40",
+    endTime: "11:60",
     scanType: "Spine Scan",
     timeType: "Usage Time",
   },
   {
     startTime: "12:02",
-    endTime: "12:12",
-    scanType: "Head Scan",
-    timeType: "Usage Time",
+    endTime: "12:15",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
   },
   {
     startTime: "12:15",
     endTime: "12:30",
     scanType: "Head Scan",
     timeType: "Usage Time",
+  },
+  {
+    startTime: "12:30",
+    endTime: "12:40",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
   },
   {
     startTime: "12:40",
@@ -77,27 +141,39 @@ machineData = [
   },
   {
     startTime: "13:00",
+    endTime: "13:10",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
+  },
+  {
+    startTime: "13:10",
     endTime: "13:15",
     scanType: "Spine Scan",
     timeType: "Usage Time",
   },
   {
     startTime: "13:15",
-    endTime: "13:25",
+    endTime: "13:35",
     scanType: "Down",
     timeType: "Down Time",
   },
   {
-    startTime: "13:27",
+    startTime: "13:35",
+    endTime: "13:40",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
+  },
+  {
+    startTime: "13:40",
     endTime: "13:55",
     scanType: "Spine Scan",
     timeType: "Usage Time",
   },
   {
-    startTime: "14:0",
+    startTime: "14:05",
     endTime: "14:15",
-    scanType: "Shoulder Scan",
-    timeType: "Usage Time",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
   },
   {
     startTime: "14:15",
@@ -106,102 +182,126 @@ machineData = [
     timeType: "Down Time",
   },
   {
-    startTime: "14:30",
+    startTime: "14:25",
     endTime: "14:55",
     scanType: "Shoulder Scan",
     timeType: "Usage Time",
   },
+  {
+    startTime: "15:25",
+    endTime: "15:30",
+    scanType: "Prep Time",
+    timeType: "Prep Time",
+  },
+  {
+    startTime: "15:30",
+    endTime: "15:60",
+    scanType: "Spine Scan",
+    timeType: "Usage Time",
+  },
 ];
+
 ///// main call sequence
 getScanLabelsAsArray(machineData);
-console.log(scanTypeLabel);
+
 getUsageMinutes(scanTypeLabel, machineData);
 
 convertMinutesIntoPercentage(scanTypeData);
-//console.log(scanTypeDataInPercentage);
+
 adjustWithChangeOver();
+createBackgroudnColors(scanTypeLabel);
+
 ////// All Funcations
-var sumOfUsage = scanTypeData.reduce((total, amount) => total + amount);
 
 function adjustWithChangeOver() {
   let sumOfUsage = scanTypeData.reduce((total, amount) => total + amount);
-  let machineFree = ((540 - sumOfUsage) / 540) * 100;
+  let machineFree = Math.round(((540 - sumOfUsage) / 540) * 100);
 
   scanTypeLabel.push("Free Machine");
   scanTypeDataInPercentage.push(machineFree);
 }
 
-function getMinutesFromSplitTimeArray(time) {
-  return time[1];
-}
-function getHourfromSplitTimeArray(time) {
-  return time[0];
-}
-function splitTimeIntoMinutesAndHours(timeToSplit) {
-  return timeToSplit.split(":");
-}
 function getScanLabelsAsArray(allData) {
   for (var scan in allData) {
-    createScanTypeLabel(allData[scan].scanType);
+    checkScanTypeLabel(allData[scan].scanType);
   }
-  //scanTypeLabel.push("Free of Use");
 }
 function convertMinutesIntoPercentage(minutesForAllUsage) {
-  for (entry in minutesForAllUsage) {
-    const usagePercentage = (minutesForAllUsage[entry] / 540) * 100;
-
+  for (let entry in minutesForAllUsage) {
+    const usagePercentage = Math.round((minutesForAllUsage[entry] / 540) * 100);
     scanTypeDataInPercentage.push(usagePercentage);
   }
-  // console.log(scanTypeDataInPercentage);
-  // scanTypeDataInPercentage.push(adjustWithChangeOver());
+
+  return scanTypeDataInPercentage;
 }
+
 function getUsageMinutes(allLabels, allData) {
   var totalMinutes = 0;
   for (var label in allLabels) {
     for (var scan in allData) {
       if (allLabels[label] === allData[scan].scanType) {
-        var startingTime = splitTimeIntoMinutesAndHours(
-          allData[scan].startTime
-        );
+        var startingTime = utils.splitTime(allData[scan].startTime);
 
-        var endingTime = splitTimeIntoMinutesAndHours(allData[scan].endTime);
+        var endingTime = utils.splitTime(allData[scan].endTime);
 
-        var startingHour = getHourfromSplitTimeArray(startingTime);
+        var startingHour = utils.getThehours(startingTime);
 
-        var startingMinute = getMinutesFromSplitTimeArray(startingTime);
+        var startingMinute = utils.getTheminutes(startingTime);
 
-        var endingHour = getHourfromSplitTimeArray(endingTime);
-        var endingMinute = parseInt(getMinutesFromSplitTimeArray(endingTime));
+        var endingHour = utils.getThehours(endingTime);
+        var endingMinute = parseInt(utils.getTheminutes(endingTime));
         totalMinutes = totalMinutes + (endingMinute - startingMinute);
       }
     }
+
     scanTypeData.push(totalMinutes);
     totalMinutes = 0;
   }
 }
 
-function createScanTypeLabel(scanType) {
+function checkScanTypeLabel(scanType) {
   if (!scanTypeLabel.includes(scanType)) {
     scanTypeLabel.push(scanType);
   }
 }
 
+function createBackgroudnColors(scanlabels) {
+  for (let label in scanlabels) {
+    let colorArray = " ";
+    switch (scanlabels[label]) {
+      case "Prep Time":
+        colorArray = "#ffea00";
+
+        break;
+      case "Down":
+        colorArray = "#ff1744";
+        break;
+      case "Free Machine":
+        colorArray = "#C0C0C0";
+        break;
+      default:
+        colorArray = "#43a047";
+    }
+    backgroundColorArray.push(colorArray);
+  }
+}
+var percent = 0;
+function getGuageChartPercentage() {
+  percent = utils.getTotalpercentageOfscanData(
+    scanTypeLabel,
+    scanTypeDataInPercentage
+  );
+
+  return percent;
+}
+export { getGuageChartPercentage };
 const data = {
   labels: scanTypeLabel,
   datasets: [
     {
       label: "Machine Usage Percentage",
       data: scanTypeDataInPercentage,
-      backgroundColor: [
-        "#ff9800",
-        "#009688",
-        "#2196f3",
-        "#9c27b0",
-        "#607d8b",
-        "#4caf50",
-        "#d0021b",
-        "#03a9f4",
-      ],
+      backgroundColor: backgroundColorArray,
     },
   ],
 };
@@ -210,6 +310,14 @@ const config = {
   type: "doughnut",
   data: data,
   options: {
+    elements: {
+      center: {
+        text: "this",
+      },
+    },
+    legend: {
+      display: false,
+    },
     plugins: {
       title: {
         display: true,
@@ -231,4 +339,5 @@ const config = {
   },
 };
 
-var myChart = new Chart(document.getElementById("donut-chart"), config);
+var ctx = document.getElementById("donut-chart").getContext("2d");
+var myChart = new Chart(ctx, config);

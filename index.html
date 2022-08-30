@@ -10,8 +10,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script type="text/javascript" src="trydata.json"></script>
+    <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="utils.js"></script>
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -27,7 +32,7 @@
           <h5 class="card-title">Stack Area Chart</h5>
           <hr />
           <canvas id="stackedbar-chart"
-            ><script src="stackedBarChart.js"></script>
+            ><script type="module" src="stackedBarChart.js"></script>
           </canvas>
         </div>
       </div>
@@ -38,8 +43,19 @@
           <h5 class="card-title">Machine Usage Chart</h5>
           <hr />
           <canvas id="donut-chart"
-            ><script src="Donutchart.js"></script>
+            ><script type="module" src="donutchart.js"></script>
           </canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-8 offset-2 my-5">
+      <div class="card border border-3 border-success">
+        <div class="card-body">
+          <h5 class="card-title">Machine_Usage Percentage Chart</h5>
+          <hr />
+          <div class="chart_div" id="chart_div">
+            <script type="module" src="gaugechart.js"></script>
+          </div>
         </div>
       </div>
     </div>
